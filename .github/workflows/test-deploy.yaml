@@ -16,7 +16,8 @@ jobs:
 
 
            - name: login
-             run: echo docker login --username=$DOCKER_USERNAME --password=$DOCKER_PASSOWORD
+             run: echo docker login --username=$DOCKER_USERNAME --password= {{ secrets.DOCKER_PASSWORD}}
+             
 
            - name: push the docker image
              run: echo docker push $CONTAINER_REGISTRY/$DOCKER_USERNAME/$IMAGE_NAME
