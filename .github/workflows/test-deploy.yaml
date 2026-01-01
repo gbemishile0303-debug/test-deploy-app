@@ -3,20 +3,22 @@ on: push
 jobs:
     docker-jobs:
         runs-on: ubuntu-latest
-        steps:
-           - name: build the docker image
-             env:
+        env:
               CONTAINER_REGISTRY: docker.io
               DOCKER_USERNAME: gbemishile0303
               IMAGE_NAME: app
+        steps:
+           - name: build the docker image
+            
              run: echo docker build . -t $CONTAINER_REGISTRY/$DOCKER_USERNAME/$IMAGE_NAME
 
 
            - name: login
-             run: echo docker login --username=gbemishile0303 --password=***********
+             run: echo docker login --username=g$DOCKER_USERNAME --password=***********
 
            - name: push the docker image
-             run: echo docker push docker.io/gbemishile0303/app
+             run: echo docker push $CONTAINER_REGISTRY/$DOCKER_USERNAME/$IMAGE_NAME
+             
 
     deploy-job:
         needs: docker-jobs
