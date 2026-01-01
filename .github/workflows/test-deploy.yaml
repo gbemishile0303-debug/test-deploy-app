@@ -1,12 +1,13 @@
 name: build and deploy
 on: push
-jobs:
-    docker-jobs:
-        runs-on: ubuntu-latest
-        env:
+env:
               CONTAINER_REGISTRY: docker.io
               DOCKER_USERNAME: gbemishile0303
               IMAGE_NAME: app
+jobs:
+    docker-jobs:
+        runs-on: ubuntu-latest
+        
         steps:
            - name: build the docker image
             
@@ -18,14 +19,14 @@ jobs:
 
            - name: push the docker image
              run: echo docker push $CONTAINER_REGISTRY/$DOCKER_USERNAME/$IMAGE_NAME
-             
+
 
     deploy-job:
         needs: docker-jobs
         runs-on: ubuntu-latest
         steps:
             - name: run the app
-              run: echo docker run docker.io/gbemishile0303/app
+              run: echo docker run $CONTAINER_REGISTRY/$DOCKER_USERNAME/$IMAGE_NAME
 
 
 
