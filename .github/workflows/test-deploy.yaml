@@ -15,8 +15,9 @@ jobs:
             - name: test the app
               run: |
                   sleep 3
+                  
+                  echo "testing the app ..." > app.txt
                   cat app.txt
-                  echo "testing the app ..." >> app.txt
     deploy-job:
         needs: test-job 
         runs-on: ubuntu-latest
@@ -24,6 +25,7 @@ jobs:
             - name: deploy the app
               run: |
                   sleep 1
+                  
+                  echo "deploying the app ..."  > app.txt
                   cat app.txt
-                  echo "deploying the app ..."  >> app.txt
 
