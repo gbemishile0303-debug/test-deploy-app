@@ -1,51 +1,83 @@
-name: First workflow
+name: build and deploy
 on: push
 jobs:
-    build-jobs:
+    docker-jobs:
         runs-on: ubuntu-latest
         steps:
-            - name: build the app
-              run: |
-                  sleep 3
-                  echo "building the app ..." > app.txt
-
-            - name: upload the app.txt file
-              uses: actions/upload-artifact@v4
-              with:
-                    name: app-text-file
-                    path: app.txt
+           - name: build the docker image
+             env:
+                CONTAINER_REGISTRY:docker.io
+                DOCKER_USERNAME: gbemishile0303
+                IMAGE_NAME: app
+             run: echo docker build . -t $container_registry/$DOCKER_USERNAME/$IMAGE_NAME
 
 
+           - name: login
+             run: echo docker login --username=gbemishile0303 --password=***********
 
-    test-job:
-        needs: build-jobs
-        runs-on: ubuntu-latest
-        steps:
-            - name: download the app.txt file
-              uses: actions/download-artifact@v5
-              with:
-                   name: app-text-file
+           - name: push the docker image
+             run: echo docker push docker.io/gbemishile0303/app
 
-
-            - name: test the app
-              run: |
-                  sleep 3
-                  cat app.txt
-                  echo "testing the app ..." 
-                  
     deploy-job:
-        needs: test-job 
+        needs: docker-jobs
         runs-on: ubuntu-latest
         steps:
+            - name: run the app
+              run: echo docker run docker.io/gbemishile0303/app
 
-            - name: download the app.txt file
-              uses: actions/download-artifact@v5
-              with:
-                   name: app-text-file
-            - name: deploy the app
-              run: |
-                  sleep 1
-                  cat app.txt
-                  echo "deploying the app ..." 
+
+
+
+
+
+# name: First workflow
+# on: push
+# jobs:
+#     build-jobs:
+#         runs-on: ubuntu-latest
+#         steps:
+#             - name: build the app
+#               run: |
+#                   sleep 3
+#                   echo "building the app ..." > app.txt
+
+#             - name: upload the app.txt file
+#               uses: actions/upload-artifact@v4
+#               with:
+#                     name: app-text-file
+#                     path: app.txt
+
+
+
+#     test-job:
+#         needs: build-jobs
+#         runs-on: ubuntu-latest
+#         steps:
+#             - name: download the app.txt file
+#               uses: actions/download-artifact@v5
+#               with:
+#                    name: app-text-file
+
+
+#             - name: test the app
+#               run: |
+#                   sleep 3
+#                   cat app.txt
+#                   echo "testing the app ..." 
+                  
+#     deploy-job:
+#         needs: test-job 
+#         runs-on: ubuntu-latest
+#         steps:
+
+#             - name: download the app.txt file
+#               uses: actions/download-artifact@v5
+#               with:
+#                    name: app-text-file
+#             - name: deploy the app
+#               run: |
+#                   sleep 1
+#                   cat app.txt
+#                   echo "deploying the app ..." 
                   
 
