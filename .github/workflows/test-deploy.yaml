@@ -9,13 +9,15 @@ jobs:
                   sleep 3
                   echo "building the app ..."
     test-job:
+        needs: build-jobs
         runs-on: ubuntu-latest
         steps:
             - name: test the app
               run: |
                   sleep 3
                   echo "testing the app ..."
-    deploy-job: 
+    deploy-job:
+        needs: test-job 
         runs-on: ubuntu-latest
         steps:
             - name: deploy the app
