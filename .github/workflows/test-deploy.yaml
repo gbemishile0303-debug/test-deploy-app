@@ -4,7 +4,7 @@ env:
               CONTAINER_REGISTRY: docker.io
               DOCKER_USERNAME: gbemishile0303
               IMAGE_NAME: app
-              PASSWORD: 1234
+              DOCKER_PASSWORD: 1234
 jobs:
     docker-jobs:
         runs-on: ubuntu-latest
@@ -12,15 +12,15 @@ jobs:
         steps:
            - name: build the docker image
             
-             run: echo docker build . -t $CONTAINER_REGISTRY/$DOCKER_USERNAME/$IMAGE_NAME
+             run: echo docker build . -t $CONTAINER_REGISTRY/${{ vars.DOCKER_USERNAME }}/$IMAGE_NAME
 
 
            - name: login
-             run: echo docker login --username=$DOCKER_USERNAME --password= {{ secrets.DOCKER_PASSWORD}}
-             
+             run: echo docker login --username=${{ vars.DOCKER_USERNAME }} --password= ${{ secrets.DOCKER_PASSWORD }}
+
 
            - name: push the docker image
-             run: echo docker push $CONTAINER_REGISTRY/$DOCKER_USERNAME/$IMAGE_NAME
+             run: echo docker push $CONTAINER_REGISTRY/${{ vars.DOCKER_USERNAME }}/$IMAGE_NAME
 
 
     deploy-job:
@@ -28,7 +28,8 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: run the app
-              run: echo docker run $CONTAINER_REGISTRY/$DOCKER_USERNAME/$IMAGE_NAME
+              run: echo docker run $CONTAINER_REGISTRY/${{ vars.DOCKER_USERNAME }}/$IMAGE_NAME
+              
 
 
 
