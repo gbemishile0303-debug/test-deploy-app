@@ -11,7 +11,7 @@ jobs:
         runs-on: ubuntu-latest
         
         steps:
-           - name: build the docker image
+           - name: build the docker images for the app
           
              run: echo docker build . -t $CONTAINER_REGISTRY/${{ vars.DOCKER_USERNAME }}/$IMAGE_NAME
 
