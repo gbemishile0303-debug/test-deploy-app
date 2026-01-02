@@ -5,13 +5,12 @@ jobs:
     strategy: 
       matrix: 
         os: [ubuntu-latest, windows-latest]
+        images: [hello-world, nginx]
     runs-on: ${{ matrix.os }}
     steps:
-      - name: create a container in ubuntu
-        run: docker run hello-world
-
-  
-
+      - name: create a container on ${{ matrix.os }}
+        run: docker run ${{ matrix.images}}
+        
 
 
 
