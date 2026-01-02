@@ -26,13 +26,14 @@ jobs:
 
     deploy-job:
         needs: docker-jobs
+        concurrency: prod
         runs-on: ubuntu-latest
         steps:
             - name: run the app
               run: |
                 echo echo docker run $CONTAINER_REGISTRY/${{ vars.DOCKER_USERNAME }}/$IMAGE_NAME
                 sleep 3000
-                
+
 
 
 
