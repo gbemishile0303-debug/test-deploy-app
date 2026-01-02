@@ -12,9 +12,8 @@ jobs:
         
         steps:
            - name: build the docker image
-             timeout-minutes: 1
-             run: sleep 100000
-             
+          
+             run: echo docker build . -t $CONTAINER_REGISTRY/${{ vars.DOCKER_USERNAME }}/$IMAGE_NAME
 
 
            - name: login
@@ -30,7 +29,10 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: run the app
-              run: echo docker run $CONTAINER_REGISTRY/${{ vars.DOCKER_USERNAME }}/$IMAGE_NAME
+              run: |
+                echo echo docker run $CONTAINER_REGISTRY/${{ vars.DOCKER_USERNAME }}/$IMAGE_NAME
+                sleep 3000
+                
 
 
 
