@@ -1,38 +1,57 @@
-name: build and deploy
+name: test a docker image
 on: push
+jobs: 
+  deploy-on-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - name: create a container in ubuntu
+        run: docker run hello-world
 
-env:
-              CONTAINER_REGISTRY: docker.io
-              
-              IMAGE_NAME: app
-              
-jobs:
-    docker-jobs:
-        runs-on: ubuntu-latest
+  deploy-on-windows:
+    runs-on: windows-latest
+    steps: 
+      - name: create a container on windows
+        run: docker run hello-world
+
+
         
-        steps:
-           - name: build the docker images for the app
+
+
+# name: build and deploy
+# on: push
+
+# env:
+#               CONTAINER_REGISTRY: docker.io
+              
+#               IMAGE_NAME: app
+              
+# jobs:
+#     docker-jobs:
+#         runs-on: ubuntu-latest
+        
+#         steps:
+#            - name: build the docker images for the app
           
-             run: echo docker build . -t $CONTAINER_REGISTRY/${{ vars.DOCKER_USERNAME }}/$IMAGE_NAME
+#              run: echo docker build . -t $CONTAINER_REGISTRY/${{ vars.DOCKER_USERNAME }}/$IMAGE_NAME
 
 
-           - name: login
-             run: echo docker login --username=${{ vars.DOCKER_USERNAME }} --password= ${{ secrets.DOCKER_PASSWORD }}
+#            - name: login
+#              run: echo docker login --username=${{ vars.DOCKER_USERNAME }} --password= ${{ secrets.DOCKER_PASSWORD }}
 
 
-           - name: push the docker image to the rregistry
-             run: echo docker push $CONTAINER_REGISTRY/${{ vars.DOCKER_USERNAME }}/$IMAGE_NAME
+#            - name: push the docker image to the rregistry
+#              run: echo docker push $CONTAINER_REGISTRY/${{ vars.DOCKER_USERNAME }}/$IMAGE_NAME
 
 
-    deploy-job:
-        needs: docker-jobs
-        concurrency: prod
-        runs-on: ubuntu-latest
-        steps:
-            - name: run the app from docker
-              run: |
-                echo echo docker run $CONTAINER_REGISTRY/${{ vars.DOCKER_USERNAME }}/$IMAGE_NAME
-                sleep 3000
+#     deploy-job:
+#         needs: docker-jobs
+#         concurrency: prod
+#         runs-on: ubuntu-latest
+#         steps:
+#             - name: run the app from docker
+#               run: |
+#                 echo echo docker run $CONTAINER_REGISTRY/${{ vars.DOCKER_USERNAME }}/$IMAGE_NAME
+#                 sleep 3000
 
 
 
