@@ -29,7 +29,7 @@ jobs:
         concurrency: prod
         runs-on: ubuntu-latest
         steps:
-            - name: run the app
+            - name: run the app from docker
               run: |
                 echo echo docker run $CONTAINER_REGISTRY/${{ vars.DOCKER_USERNAME }}/$IMAGE_NAME
                 sleep 3000
