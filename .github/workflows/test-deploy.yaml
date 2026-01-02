@@ -1,4 +1,4 @@
-name: test a docker image
+name: test a docker image container
 on: push
 jobs: 
   deploy:
@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: create a container on ${{ matrix.os }}
         run: docker run ${{ matrix.images}}
-        
+
 
 
 
