@@ -13,8 +13,7 @@ jobs:
             image: alpine
         include: 
           - os: ubuntu-latest
-            images: node:alpine
-            
+            images: node:alpine        
     runs-on: ${{ matrix.os }}
     steps:
       - name: create a container on ${{ matrix.os }}
