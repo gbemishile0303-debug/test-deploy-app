@@ -1,4 +1,4 @@
-name: test a docker image container
+name: test a docker image containers
 on: push
 jobs: 
   deploy:
