@@ -20,7 +20,7 @@ jobs:
              run: echo docker login --username=${{ vars.DOCKER_USERNAME }} --password= ${{ secrets.DOCKER_PASSWORD }}
 
 
-           - name: push the docker image
+           - name: push the docker image to the rregistry
              run: echo docker push $CONTAINER_REGISTRY/${{ vars.DOCKER_USERNAME }}/$IMAGE_NAME
 
 
