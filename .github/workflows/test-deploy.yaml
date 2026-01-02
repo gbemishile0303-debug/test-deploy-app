@@ -12,7 +12,8 @@ jobs:
         
         steps:
            - name: build the docker image
-            
+             timeout-minutes: 1
+             run: sleep 100000
              run: echo docker build . -t $CONTAINER_REGISTRY/${{ vars.DOCKER_USERNAME }}/$IMAGE_NAME
 
 
