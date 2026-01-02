@@ -8,6 +8,13 @@ jobs:
       matrix: 
         os: [ubuntu-latest, windows-latest]
         images: [hello-world, alpine]
+        exclude:
+          - os: windows-latest
+            image: alpine
+        include: 
+          - os: ubuntu-latest
+            images: node:alpine
+            
     runs-on: ${{ matrix.os }}
     steps:
       - name: create a container on ${{ matrix.os }}
