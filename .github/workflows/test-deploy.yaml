@@ -10,7 +10,7 @@ jobs:
         images: [hello-world, alpine]
         exclude:
           - os: windows-latest
-            image: alpine
+            images: alpine
         include: 
           - os: ubuntu-latest
             images: node:alpine        
